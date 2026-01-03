@@ -1,6 +1,7 @@
 SHELL := /bin/bash
 PYTHON := .venv/bin/python
 PIP_STAMP := .venv/.pip-upgraded
+DEV_STAMP := .venv/.dev-deps-installed
 
 .DEFAULT_GOAL := help
 
@@ -28,11 +29,16 @@ venv:
 install: venv
 	@command -v brew >/dev/null || (echo "Homebrew required. Install from brew.sh"; exit 1)
 	@brew list hunspell >/dev/null 2>&1 || brew install hunspell
-	@$(PYTHON) -m pip install -r requirements-dev.txt
-
+	@if [ ! -f "$(DEV_STAMP)" ] || [ requirements-dev.txt -nt "$(DEV_STAMP)" ]; then \
+		$(PYTHON) -m pip install -r requirements-dev.txt >/dev/null; \
+		touch "$(DEV_STAMP)"; \
+	fi
 .PHONY: install-dev
 install-dev: venv
-	@$(PYTHON) -m pip install -r requirements-dev.txt
+	@if [ ! -f "$(DEV_STAMP)" ] || [ requirements-dev.txt -nt "$(DEV_STAMP)" ]; then \
+		$(PYTHON) -m pip install -r requirements-dev.txt; \
+		touch "$(DEV_STAMP)"; \
+	fi
 
 .PHONY: dict-de
 dict-de:
