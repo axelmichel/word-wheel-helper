@@ -18,12 +18,9 @@ Verify installation:
 hunspell -v
 ```
 
----
-**⚠️ Note**
-This project does NOT use Python hunspell bindings (hunspell, cyhunspell).
+**⚠️ Note**: This project does NOT use Python hunspell bindings (hunspell, cyhunspell).
 Those packages are intentionally avoided because they fail to build on modern Python versions.
 Instead, the program uses the Hunspell CLI (hunspell -a) via subprocess.
----
 
 ### Installing Hunspell Dictionaries (macOS)
 Hunspell installs only the engine. Dictionaries must be installed separately.
@@ -31,10 +28,8 @@ This project expects dictionary files (.dic and .aff) in:
 ```bash
 ~/Library/Spelling
 ```
----
-**⚠️ Note**
-This path is configurable via .env (HUNSPELL_DIR).
----
+**⚠️ Note**: This path is configurable via .env (HUNSPELL_DIR).
+
 
 Use the make commands for dict-[de,en,es,fr] or do it manually like this:
 ```bash
